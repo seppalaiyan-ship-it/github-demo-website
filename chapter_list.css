@@ -101,6 +101,6 @@
     /* Mobile responsive: 1 or 2 columns */
     @media (max-width:700px){
       .fancy-list{
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
       }
     }
