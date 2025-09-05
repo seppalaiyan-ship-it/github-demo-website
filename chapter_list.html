@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Animated Numbered Link List</title>
+  <style>
+    :root{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --accent-1: #6c63ff;   /* primary */
+      --accent-2: #9ea8ff;   /* light */
+      --text: #0f1724;
+      --muted: #6b7280;
+      --radius: 12px;
+      --gap: 14px;
+    }
+
+    /* Basic page layout */
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #eef2ff 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+
+    .container{
+      width:100%;
+      max-width:720px;
+      background:var(--card);
+      padding:22px;
+      border-radius:18px;
+      box-shadow: 0 10px 30px rgba(20,20,50,0.06);
+    }
+
+    h1{
+      margin:0 0 16px 0;
+      font-size:20px;
+      letter-spacing: -0.2px;
+    }
+    p.note{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Remove default OL styles and prepare counter */
+    ol.fancy-list{
+      list-style: none;
+      padding: 8px;
+      margin: 0;
+      counter-reset: item;
+      display:flex;
+      flex-direction:column;
+      gap: var(--gap);
+    }
+
+    /* Each item is a row with number circle + link area */
+    ol.fancy-list li{
+      counter-increment: item;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:10px 14px;
+      border-radius: var(--radius);
+      transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms, background-color 220ms;
+      cursor: default;
+      position:relative;
+      overflow:visible;
+    }
+
+    /* Number circle using the counter value */
+    ol.fancy-list li::before{
+      content: counter(item);
+      display:inline-grid;
+      place-items:center;
+      width:44px;
+      height:44px;
+      min-width:44px;
+      border-radius:50%;
+      font-weight:700;
+      font-size:15px;
+      color: white;
+      /* gradient background for circle */
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      box-shadow: 0 6px 18px rgba(99,92,255,0.14), inset 0 -4px 8px rgba(255,255,255,0.06);
+      transform-origin:center;
+      transition: transform 240ms cubic-bezier(.2,.9,.3,1), box-shadow 240ms;
+    }
+
+    /* Link text */
+    ol.fancy-list li a{
+      text-decoration:none;
+      color:var(--text);
+      font-weight:600;
+      font-size:15px;
+      display:inline-block;
+      position:relative;
+      padding:6px 0;
+      width:100%;
+      transition: color 200ms;
+    }
+
+    /* sliding underline effect on the link */
+    ol.fancy-list li a::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, rgba(108,99,255,0.95), rgba(158,168,255,0.95));
+      transition: width 280ms cubic-bezier(.2,.9,.3,1);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+
+    /* small description / muted text to the right (optional area) */
+    ol.fancy-list li .meta{
+      margin-left:auto;
+      font-size:13px;
+      color:var(--muted);
+      white-space:nowrap;
+      padding-left:12px;
+    }
+
+    /* Hover interactions */
+    ol.fancy-list li:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(14,16,60,0.08);
+      background: linear-gradient(180deg, rgba(99,92,255,0.03), rgba(158,168,255,0.01));
+    }
+
+    ol.fancy-list li:hover::before{
+      transform: scale(1.12) rotate(-6deg);
+      box-shadow: 0 10px 26px rgba(99,92,255,0.18);
+    }
+
+    ol.fancy-list li:hover a{
+      color: var(--accent-1);
+    }
+
+    ol.fancy-list li:hover a::after{
+      width: 60%;
+    }
+
+    /* Make the underline longer on focus (keyboard accessibility) */
+    ol.fancy-list li a:focus{
+      outline: none;
+    }
+    ol.fancy-list li a:focus::after{
+      width: 80%;
+    }
+
+    /* Subtle staggered effect using nth-child for micro-delays (pure CSS) */
+    ol.fancy-list li{
+      transition-delay: 0ms;
+    }
+    ol.fancy-list li:nth-child(odd){
+      transition-duration: 240ms;
+    }
+    ol.fancy-list li:nth-child(even){
+      transition-duration: 260ms;
+    }
+
+    /* Respect reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      ol.fancy-list li,
+      ol.fancy-list li::before,
+      ol.fancy-list li a::after {
+        transition: none !important;
+      }
+      ol.fancy-list li:hover{ transform:none; box-shadow:none; background:transparent; }
+      ol.fancy-list li:hover::before{ transform:none; }
+      ol.fancy-list li a::after{ display:none; }
+    }
+
+    /* Responsive tweaks */
+    @media (max-width:420px){
+      ol.fancy-list li{ gap:10px; padding:10px; }
+      ol.fancy-list li::before{ width:38px; height:38px; min-width:38px; font-size:14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="region" aria-label="Numbered link list example">
+    <h1>Quick Links</h1>
+    <p class="note">Hover any item to see the animation. Use keyboard to focus the links for accessibility.</p>
+
+    <ol class="fancy-list" aria-label="List of ten links">
+      <li><a href="#link1">Introduction to the project</a><span class="meta">README</span></li>
+      <li><a href="#link2">Installation instructions</a><span class="meta">Setup</span></li>
+      <li><a href="#link3">Usage examples</a><span class="meta">Examples</span></li>
+      <li><a href="#link4">API reference</a><span class="meta">Docs</span></li>
+      <li><a href="#link5">Configuration options</a><span class="meta">Settings</span></li>
+      <li><a href="#link6">Contributing guide</a><span class="meta">Contribute</span></li>
+      <li><a href="#link7">Changelog</a><span class="meta">Updates</span></li>
+      <li><a href="#link8">FAQ</a><span class="meta">Help</span></li>
+      <li><a href="#link9">License</a><span class="meta">Legal</span></li>
+      <li><a href="#link10">Contact / Support</a><span class="meta">Contact</span></li>
+    </ol>
+  </div>
+</body>
+</html>
