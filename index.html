@@ -19,6 +19,18 @@
     .appendTo('#slideshow');
 }, 3000);
 </script>
+
+ <script>
+     function loadSection(containerId, url) {
+  fetch(url)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById(containerId).innerHTML = data;
+    })
+    .catch(err => console.error("Error loading section:", url, err));
+}
+    </script>
+  
 </head>
 <body>
   <header>
@@ -53,7 +65,11 @@
       <li>📂 GitHub Pages ஹோஸ்டிங்</li>
     </ul>
   </section>
-
+<div id="external-section"></div>
+    <script>
+  loadSection("external-section", "https://seppalaiyan-ship-it.github.io/my-blog-html/section.html");
+</script>
+  
   <footer>
     <p>© 2025 என் Demo Website</p>
   </footer>
