@@ -27,7 +27,7 @@
       margin:0;
       counter-reset:item;
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap:20px;
     }
 
@@ -36,6 +36,7 @@
       display:flex;
       align-items:center;
       gap:12px;
+      font-size:20px;
       padding:14px 16px;
       border-radius:12px;
       transition:transform 220ms, box-shadow 220ms, background-color 220ms;
