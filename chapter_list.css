@@ -52,7 +52,7 @@
       min-width:36px;
       border-radius:50%;
       font-weight:700;
-      font-size:15px;
+      font-size:20px;
       color:#fff;
       background:linear-gradient(135deg,#6c63ff,#9ea8ff);
       transition:transform 240ms, box-shadow 240ms;
@@ -62,7 +62,7 @@
       text-decoration:none;
       color:#0f1724;
       font-weight:600;
-      font-size:15px;
+      font-size:20px;
       position:relative;
       padding:4px 0;
       width:100%;
@@ -74,7 +74,7 @@
       position:absolute;
       left:0;
       bottom:0;
-      height:2px;
+      height:20px;
       width:0%;
       border-radius:99px;
       background:linear-gradient(90deg,rgba(108,99,255,0.95),rgba(158,168,255,0.95));
