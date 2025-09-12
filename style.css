@@ -4,12 +4,13 @@ body {
   padding: 0;
   background: #f4f7fa;
   color: #333;
+  font-size:20px;
   line-height: 1.6;
 }
 
 header {
   background: #006064;
-  color: white;
+  color: white; font-size:20px;
   padding: 20px;
   text-align: center;
 }
